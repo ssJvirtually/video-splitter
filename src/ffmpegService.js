@@ -1,8 +1,7 @@
 import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { fetchFile } from '@ffmpeg/util';
-import coreURL from '@ffmpeg/core?url';
-import wasmURL from '@ffmpeg/core/wasm?url';
 
+const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm';
 const ffmpeg = new FFmpeg();
 
 export async function loadFFmpeg(setStatus) {
@@ -12,8 +11,11 @@ export async function loadFFmpeg(setStatus) {
     console.log(message);
   });
 
-  setStatus('Loading FFmpeg (~20MB)...');
-  await ffmpeg.load({ coreURL, wasmURL });
+  setStatus('Loading FFmpeg (~20MB from CDN)...');
+  await ffmpeg.load({
+    coreURL: `${baseURL}/ffmpeg-core.js`,
+    wasmURL: `${baseURL}/ffmpeg-core.wasm`,
+  });
   setStatus('FFmpeg Ready');
 }
 
