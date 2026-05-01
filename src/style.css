@@ -11,8 +11,16 @@
   color: var(--text);
 }
 
-.upload-section {
+.action-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
   margin: 2rem 0;
+}
+
+.upload-section {
+  margin: 0;
 }
 
 .button {
@@ -23,11 +31,24 @@
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s, transform 0.2s;
+  border: none;
+  font-size: 16px;
 }
 
 .button:hover {
   opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.button.secondary {
+  background-color: #27ae60;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .status-container {
