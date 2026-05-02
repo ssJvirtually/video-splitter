@@ -19,6 +19,47 @@ export async function loadFFmpeg(setStatus) {
   setStatus('FFmpeg Ready');
 }
 
+export async function convertToMp4(file, setProgress, setStatus) {
+  let progressHandler;
+
+  try {
+    await loadFFmpeg(setStatus);
+
+    progressHandler = ({ progress }) => {
+      setProgress(Number((progress * 100).toFixed(2)));
+    };
+    ffmpeg.on('progress', progressHandler);
+
+    setStatus('Converting video...');
+    
+    // Cleanup previous files
+    try {
+      await ffmpeg.deleteFile('input');
+      await ffmpeg.deleteFile('output.mp4');
+    } catch (e) {}
+
+    await ffmpeg.writeFile('input', await fetchFile(file));
+
+    await ffmpeg.exec([
+      '-i', 'input',
+      '-c', 'copy',
+      'output.mp4'
+    ]);
+
+    const data = await ffmpeg.readFile('output.mp4');
+    setStatus('Done');
+    return { name: 'converted.mp4', data };
+  } catch (error) {
+    console.error(error);
+    setStatus(`Error: ${error?.message || 'Failed to convert video'}`);
+    throw error;
+  } finally {
+    if (progressHandler) {
+      ffmpeg.off('progress', progressHandler);
+    }
+  }
+}
+
 export async function splitVideo(file, segmentTime, setProgress, setStatus) {
   let progressHandler;
 

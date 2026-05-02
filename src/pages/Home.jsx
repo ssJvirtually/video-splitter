@@ -8,6 +8,13 @@ function Home() {
       description: 'Split videos into segments directly in your browser.',
       path: '/splitter',
       icon: '🎬'
+    },
+    {
+      id: 'converter',
+      name: 'MOV to MP4',
+      description: 'Convert MOV videos to MP4 format instantly.',
+      path: '/converter',
+      icon: '🔄'
     }
     // Future tools can be added here
   ];
