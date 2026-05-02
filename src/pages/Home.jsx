@@ -11,8 +11,8 @@ function Home() {
     },
     {
       id: 'converter',
-      name: 'MOV to MP4',
-      description: 'Convert MOV videos to MP4 format instantly.',
+      name: 'Video Converter',
+      description: 'Convert videos between formats like MP4, MOV, MKV, and more.',
       path: '/converter',
       icon: '🔄'
     }

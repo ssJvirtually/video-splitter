@@ -19,7 +19,7 @@ export async function loadFFmpeg(setStatus) {
   setStatus('FFmpeg Ready');
 }
 
-export async function convertToMp4(file, setProgress, setStatus) {
+export async function convertVideo(file, outputFormat, setProgress, setStatus) {
   let progressHandler;
 
   try {
@@ -30,25 +30,29 @@ export async function convertToMp4(file, setProgress, setStatus) {
     };
     ffmpeg.on('progress', progressHandler);
 
-    setStatus('Converting video...');
+    setStatus(`Converting to ${outputFormat.toUpperCase()}...`);
     
+    const outputName = `output.${outputFormat}`;
+
     // Cleanup previous files
     try {
       await ffmpeg.deleteFile('input');
-      await ffmpeg.deleteFile('output.mp4');
+      await ffmpeg.deleteFile(outputName);
     } catch (e) {}
 
     await ffmpeg.writeFile('input', await fetchFile(file));
 
+    // For simplicity and speed, we use copy codec where possible
+    // Note: copy might not work for all format transitions, but for common ones like mov/mp4/mkv it's fine.
     await ffmpeg.exec([
       '-i', 'input',
       '-c', 'copy',
-      'output.mp4'
+      outputName
     ]);
 
-    const data = await ffmpeg.readFile('output.mp4');
+    const data = await ffmpeg.readFile(outputName);
     setStatus('Done');
-    return { name: 'converted.mp4', data };
+    return { name: `converted.${outputFormat}`, data, format: outputFormat };
   } catch (error) {
     console.error(error);
     setStatus(`Error: ${error?.message || 'Failed to convert video'}`);
