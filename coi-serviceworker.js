@@ -47,11 +47,14 @@ if (typeof window === 'undefined') {
                     }
                     newHeaders.set("Cross-Origin-Opener-Policy", "same-origin");
 
-                    return new Response(response.body, {
-                        status: response.status,
-                        statusText: response.statusText,
-                        headers: newHeaders,
-                    });
+                    return new Response(
+                        [204, 205, 304].includes(response.status) ? null : response.body,
+                        {
+                            status: response.status,
+                            statusText: response.statusText,
+                            headers: newHeaders,
+                        }
+                    );
                 })
                 .catch((e) => console.error(e))
         );
