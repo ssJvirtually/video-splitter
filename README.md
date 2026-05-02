@@ -2,13 +2,14 @@
 
 A powerful, privacy-focused collection of media tools that run entirely in your browser using **FFmpeg WASM**. No files are ever uploaded to a server—all processing happens locally on your machine.
 
-🚀 **Live Demo:** [https://ssjvirtually.github.io/video-splitter/](https://ssjvirtually.github.io/video-splitter/)
+🚀 **Live Demo:** [https://ssjvirtually.github.io/media-utils/](https://ssjvirtually.github.io/media-utils/)
 
 ---
 
 ## ✨ Features
 
 ### 1. 🎬 Video Splitter
+- **Format Support:** Reliable splitting for **MP4, MOV (iPhone), and MKV** files.
 - **Custom Durations:** Split your videos into segments of any length (e.g., 15s for Stories, 30s for WhatsApp, 60s for Reels).
 - **Batch Processing:** Splits the entire video and prepares all chunks for review.
 - **Instant Download:** Download individual clips or grab everything at once in a **ZIP archive**.
@@ -34,8 +35,8 @@ A powerful, privacy-focused collection of media tools that run entirely in your 
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/ssJvirtually/video-splitter.git
-   cd video-splitter
+   git clone https://github.com/ssJvirtually/media-utils.git
+   cd media-utils
    ```
 
 2. **Install dependencies:**
