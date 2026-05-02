@@ -19,6 +19,31 @@
   margin: 2rem 0;
 }
 
+.settings-row {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.duration-input {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-h);
+  width: 80px;
+  font-size: 16px;
+  font-family: var(--mono);
+}
+
+.duration-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-bg);
+}
+
 .upload-section {
   margin: 0;
 }

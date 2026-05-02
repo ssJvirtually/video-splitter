@@ -19,7 +19,7 @@ export async function loadFFmpeg(setStatus) {
   setStatus('FFmpeg Ready');
 }
 
-export async function splitVideo(file, setProgress, setStatus) {
+export async function splitVideo(file, segmentTime, setProgress, setStatus) {
   let progressHandler;
 
   try {
@@ -49,7 +49,7 @@ export async function splitVideo(file, setProgress, setStatus) {
       '-i', 'input.mp4',
       '-c', 'copy',
       '-map', '0',
-      '-segment_time', '30',
+      '-segment_time', String(segmentTime),
       '-f', 'segment',
       'chunk_%03d.mp4'
     ]);

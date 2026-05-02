@@ -8,6 +8,7 @@ function App() {
   const [progress, setProgress] = useState(0)
   const [status, setStatus] = useState("Idle")
   const [isZipping, setIsZipping] = useState(false)
+  const [segmentDuration, setSegmentDuration] = useState(30)
 
   // Cleanup blob URLs to prevent memory leaks
   useEffect(() => {
@@ -23,7 +24,7 @@ function App() {
     setProgress(0)
     setChunks([]) // Clear previous chunks
     try {
-      const result = await splitVideo(file, setProgress, setStatus)
+      const result = await splitVideo(file, segmentDuration, setProgress, setStatus)
     
       // Create URLs once and store them
       const chunksWithUrls = result.map(chunk => ({
@@ -71,7 +72,19 @@ function App() {
   return (
     <div className="container">
       <h1>🎬 Video Splitter</h1>
-      <p className="description">Splits your video into 30-second segments directly in your browser.</p>
+      <p className="description">Splits your video into {segmentDuration}-second segments directly in your browser.</p>
+
+      <div className="settings-row">
+        <label htmlFor="duration">Clip Duration (seconds): </label>
+        <input 
+          type="number" 
+          id="duration" 
+          value={segmentDuration} 
+          onChange={(e) => setSegmentDuration(Number(e.target.value))}
+          min="1"
+          className="duration-input"
+        />
+      </div>
 
       <div className="action-row">
         <div className="upload-section">
