@@ -93,9 +93,11 @@ export async function splitVideo(file, segmentTime, setProgress, setStatus) {
     await ffmpeg.exec([
       '-i', 'input.mp4',
       '-c', 'copy',
-      '-map', '0:v',      // Map only video streams
-      '-map', '0:a?',     // Map audio streams if they exist
-      '-ignore_unknown',  // Ignore any unknown stream types (metadata, data)
+      '-map', '0:v:0',    // Explicitly map first video stream
+      '-map', '0:a:0?',   // Explicitly map first audio stream if exists
+      '-sn',              // Disable subtitle mapping
+      '-dn',              // Disable data mapping
+      '-ignore_unknown',  // Safety for metadata
       '-segment_time', String(segmentTime),
       '-f', 'segment',
       'chunk_%03d.mp4'
