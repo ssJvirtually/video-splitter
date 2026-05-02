@@ -4,7 +4,7 @@ function Home() {
   const tools = [
     {
       id: 'splitter',
-      name: '🎬 Video Splitter',
+      name: 'Video Splitter',
       description: 'Split videos into segments directly in your browser.',
       path: '/splitter',
       icon: '🎬'

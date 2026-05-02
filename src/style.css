@@ -46,16 +46,19 @@
 
 .tools-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 24px;
   margin-top: 3rem;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .tool-card {
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 16px;
-  padding: 32px;
+  padding: 40px 24px;
   text-decoration: none;
   color: inherit;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -72,19 +75,22 @@
 }
 
 .tool-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  line-height: 1;
 }
 
 .tool-card h2 {
   margin: 0.5rem 0;
   font-size: 1.5rem;
+  color: var(--text-h);
 }
 
 .tool-card p {
   color: var(--text);
-  font-size: 1rem;
+  font-size: 1.1rem;
   line-height: 1.5;
+  margin: 0;
 }
 
 .back-link {
