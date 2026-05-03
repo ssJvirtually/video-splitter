@@ -64,6 +64,53 @@ export async function convertVideo(file, outputFormat, setProgress, setStatus) {
   }
 }
 
+export async function convertToAudio(file, setProgress, setStatus) {
+  let progressHandler;
+
+  try {
+    await loadFFmpeg(setStatus);
+
+    progressHandler = ({ progress }) => {
+      setProgress(Number((progress * 100).toFixed(2)));
+    };
+    ffmpeg.on('progress', progressHandler);
+
+    setStatus(`Extracting MP3...`);
+    
+    const outputName = `output.mp3`;
+
+    // Cleanup previous files
+    try {
+      await ffmpeg.deleteFile('input');
+      await ffmpeg.deleteFile(outputName);
+    } catch (e) {}
+
+    await ffmpeg.writeFile('input', await fetchFile(file));
+
+    await ffmpeg.exec([
+      '-i', 'input',
+      '-vn',
+      '-acodec', 'libmp3lame',
+      '-ab', '192k',
+      '-ar', '44100',
+      outputName
+    ]);
+
+    const data = await ffmpeg.readFile(outputName);
+    setStatus('Done');
+    const originalName = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
+    return { name: `${originalName}.mp3`, data, format: 'mp3' };
+  } catch (error) {
+    console.error(error);
+    setStatus(`Error: ${error?.message || 'Failed to extract MP3'}`);
+    throw error;
+  } finally {
+    if (progressHandler) {
+      ffmpeg.off('progress', progressHandler);
+    }
+  }
+}
+
 export async function splitVideo(file, segmentTime, setProgress, setStatus) {
   let progressHandler;
 

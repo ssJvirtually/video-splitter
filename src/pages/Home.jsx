@@ -15,6 +15,13 @@ function Home() {
       description: 'Convert videos between formats like MP4, MOV, MKV, and more.',
       path: '/converter',
       icon: '🔄'
+    },
+    {
+      id: 'video-to-mp3',
+      name: 'Video to MP3',
+      description: 'Convert any video format to high-quality MP3 audio.',
+      path: '/video-to-mp3',
+      icon: '🎵'
     }
     // Future tools can be added here
   ];
